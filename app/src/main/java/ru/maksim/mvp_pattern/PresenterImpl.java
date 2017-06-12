@@ -1,5 +1,7 @@
 package ru.maksim.mvp_pattern;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by maksim on 12.06.17.
  */
@@ -8,6 +10,7 @@ class PresenterImpl implements Presenter {
 
     private final Interactor mInteractor;
     private volatile MvpView mMvpView;
+//    private
 
     PresenterImpl() {
         mInteractor = new InteractorImpl();
@@ -18,7 +21,7 @@ class PresenterImpl implements Presenter {
         mMvpView = view;
         Model model = mInteractor.getPendingModel();
         if (model != null) {
-            mMvpView.showModel(model);
+            mMvpView.onModelRetrieved(model);
         }
     }
 
@@ -35,9 +38,19 @@ class PresenterImpl implements Presenter {
                 if (mMvpView == null) {
                     mInteractor.storePendingModel(model);
                 } else {
-                    mMvpView.showModel(model);
+                    mMvpView.onModelRetrieved(model);
                 }
             }
         });
+    }
+
+    @Override
+    public void runOnUiThread(@NonNull Runnable runnable) {
+
+    }
+
+    @Override
+    public void showModel(@NonNull Model model) {
+        mMvpView.showModel(model);
     }
 }

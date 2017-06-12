@@ -8,5 +8,7 @@ import android.support.annotation.NonNull;
 
 public interface MvpView {
 
+    void onModelRetrieved(@NonNull Model model);
+
     void showModel(@NonNull Model model);
 }
