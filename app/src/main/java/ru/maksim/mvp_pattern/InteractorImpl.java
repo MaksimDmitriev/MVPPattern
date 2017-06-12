@@ -34,6 +34,7 @@ class InteractorImpl implements Interactor {
         private final OnCompleteListener mOnCompleteListener;
 
         ModelRetriever(OnCompleteListener onCompleteListener) {
+            super("ModelRetriever");
             mOnCompleteListener = onCompleteListener;
         }
 
