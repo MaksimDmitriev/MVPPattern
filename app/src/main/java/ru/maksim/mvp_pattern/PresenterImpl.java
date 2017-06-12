@@ -1,5 +1,7 @@
 package ru.maksim.mvp_pattern;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 
 /**
@@ -9,11 +11,12 @@ import android.support.annotation.NonNull;
 class PresenterImpl implements Presenter {
 
     private final Interactor mInteractor;
+    private final Handler mUiHandler;
     private volatile MvpView mMvpView;
-//    private
 
     PresenterImpl() {
         mInteractor = new InteractorImpl();
+        mUiHandler = new Handler(Looper.getMainLooper());
     }
 
     @Override
@@ -22,6 +25,7 @@ class PresenterImpl implements Presenter {
         Model model = mInteractor.getPendingModel();
         if (model != null) {
             mMvpView.onModelRetrieved(model);
+            mInteractor.storePendingModel(null);
         }
     }
 
@@ -32,21 +36,18 @@ class PresenterImpl implements Presenter {
 
     @Override
     public void requestModel() {
-        mInteractor.requestModel(new OnCompleteListener() {
-            @Override
-            public void onComplete(Model model) {
-                if (mMvpView == null) {
-                    mInteractor.storePendingModel(model);
-                } else {
-                    mMvpView.onModelRetrieved(model);
-                }
+        mInteractor.requestModel(model -> {
+            if (mMvpView == null) {
+                mInteractor.storePendingModel(model);
+            } else {
+                mMvpView.onModelRetrieved(model);
             }
         });
     }
 
     @Override
     public void runOnUiThread(@NonNull Runnable runnable) {
-
+        mUiHandler.post(runnable);
     }
 
     @Override

@@ -39,11 +39,11 @@ public class MainFragment extends Fragment implements MvpView, View.OnClickListe
     }
 
     @Override
-    public void onModelRetrieved(@NonNull Model model) {
+    public void onModelRetrieved(@NonNull final Model model) {
         if (Looper.getMainLooper() == Looper.myLooper()) {
             mPresenter.showModel(model);
         } else {
-
+            mPresenter.runOnUiThread(() -> mPresenter.showModel(model));
         }
     }
 
