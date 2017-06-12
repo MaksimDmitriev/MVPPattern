@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MVP-Pattern</string>
+    <string name="request_model">Request Model</string>
+</resources>
