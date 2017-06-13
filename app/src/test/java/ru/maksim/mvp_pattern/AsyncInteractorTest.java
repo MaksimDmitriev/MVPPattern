@@ -3,7 +3,6 @@ package ru.maksim.mvp_pattern;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -12,23 +11,22 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class InteractorTest {
+public class AsyncInteractorTest {
 
     private Interactor mInteractor;
 
     @Before
     public void setUp() {
-        mInteractor = new InteractorImpl();
+        mInteractor = new AsyncInteractor();
     }
 
     @Test
     public void requestModel() throws Exception {
         OnCompleteListener onCompleteListener = mock(OnCompleteListener.class);
         mInteractor.requestModel(onCompleteListener);
-        verify(onCompleteListener, timeout(InteractorImpl.DELAY + 2000L)).onComplete(new Model());
+        verify(onCompleteListener, timeout(AsyncInteractor.DELAY + 2000L)).onComplete(new Model());
     }
 
     @Test

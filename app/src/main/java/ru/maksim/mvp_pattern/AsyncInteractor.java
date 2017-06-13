@@ -7,27 +7,14 @@ import android.util.Log;
  * Created by maksim on 12.06.17.
  */
 
-class InteractorImpl implements Interactor {
+class AsyncInteractor extends BaseInteractor {
 
     static final long DELAY = 7000L;
-    private static final String TAG = "InteractorImpl";
-
-    private Model mPendingModel;
+    private static final String TAG = "AsyncInteractor";
 
     @Override
-    public void requestModel(OnCompleteListener onCompleteListener) {
+    public void requestModel(@Nullable OnCompleteListener onCompleteListener) {
         new ModelRetriever(onCompleteListener).start();
-    }
-
-    @Nullable
-    @Override
-    public Model getPendingModel() {
-        return mPendingModel;
-    }
-
-    @Override
-    public void storePendingModel(@Nullable Model model) {
-        mPendingModel = model;
     }
 
     private static class ModelRetriever extends Thread {

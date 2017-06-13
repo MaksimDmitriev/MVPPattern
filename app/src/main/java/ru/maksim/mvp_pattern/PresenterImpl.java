@@ -6,13 +6,13 @@ import android.support.annotation.NonNull;
  * Created by maksim on 13.06.17.
  */
 
-abstract class BasePresenter implements Presenter {
+class PresenterImpl implements Presenter {
 
     final Interactor mInteractor;
     volatile MvpView mMvpView;
 
-    BasePresenter() {
-        mInteractor = new InteractorImpl();
+    PresenterImpl() {
+        mInteractor = new SyncInteractor();
     }
 
     @Override
@@ -23,6 +23,11 @@ abstract class BasePresenter implements Presenter {
             mMvpView.onModelRetrieved(model);
             mInteractor.storePendingModel(null);
         }
+    }
+
+    @Override
+    public void requestModel() {
+        mInteractor.requestModel(model -> handleRetrievedModel(model));
     }
 
     @Override
@@ -42,7 +47,7 @@ abstract class BasePresenter implements Presenter {
         }
     }
 
-    final void handleRetievedModel(@NonNull Model model) {
+    final void handleRetrievedModel(@NonNull Model model) {
         if (mMvpView == null) {
             mInteractor.storePendingModel(model);
         } else {

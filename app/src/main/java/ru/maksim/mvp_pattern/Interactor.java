@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 
 public interface Interactor {
 
-    void requestModel(OnCompleteListener onCompleteListener);
+    void requestModel(@Nullable OnCompleteListener onCompleteListener);
 
     @Nullable
     Model getPendingModel();
