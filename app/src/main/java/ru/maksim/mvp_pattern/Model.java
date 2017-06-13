@@ -16,4 +16,21 @@ public class Model {
     public String toString() {
         return Integer.toString(mVar);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Model)) {
+            return false;
+        }
+        Model other = (Model) obj;
+        return mVar == other.mVar;
+    }
+
+    @Override
+    public int hashCode() {
+        return mVar;
+    }
 }

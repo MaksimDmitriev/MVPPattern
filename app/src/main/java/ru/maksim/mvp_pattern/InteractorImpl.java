@@ -9,6 +9,7 @@ import android.util.Log;
 
 class InteractorImpl implements Interactor {
 
+    static final long DELAY = 7000L;
     private static final String TAG = "InteractorImpl";
 
     private Model mPendingModel;
@@ -41,7 +42,7 @@ class InteractorImpl implements Interactor {
         @Override
         public void run() {
             try {
-                Thread.sleep(7000L);
+                Thread.sleep(DELAY);
             } catch (InterruptedException e) {
                 Log.e(TAG, "", e);
             }
