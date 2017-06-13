@@ -23,7 +23,7 @@ public class MainFragment extends Fragment implements MvpView, View.OnClickListe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        mPresenter = new PresenterImpl();
+        mPresenter = new SyncPresenterImpl();
     }
 
     @Nullable

@@ -38,8 +38,4 @@ public class InteractorTest {
         assertEquals(model, mInteractor.getPendingModel());
     }
 
-    @Test
-    public void storePendingModel() throws Exception {
-    }
-
 }
