@@ -11,4 +11,6 @@ public interface MvpView {
     void onModelRetrieved(@NonNull Model model);
 
     void showModel(@NonNull Model model);
+
+    void runOnUiThread(@NonNull Runnable runnable);
 }

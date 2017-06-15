@@ -23,7 +23,7 @@ public class MainFragment extends Fragment implements MvpView, View.OnClickListe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        mPresenter = new PresenterImpl();
+        mPresenter = new PresenterImpl(new SyncInteractor());
     }
 
     @Nullable
@@ -71,5 +71,10 @@ public class MainFragment extends Fragment implements MvpView, View.OnClickListe
     @Override
     public void showModel(@NonNull Model model) {
         mModelTextView.setText(model.toString());
+    }
+
+    @Override
+    public void runOnUiThread(@NonNull Runnable runnable) {
+        getActivity().runOnUiThread(runnable);
     }
 }
