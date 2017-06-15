@@ -7,6 +7,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -49,19 +52,44 @@ public class PresenterTest {
 
     @Test
     public void detach() throws Exception {
+        mPresenter.attach(mMvpView);
+        mPresenter.detach();
+        assertNull(mPresenter.getMvpView());
     }
 
     @Test
     public void requestModel() throws Exception {
+        mPresenter.requestModel();
+        verify(mInteractor).requestModel(any(OnCompleteListener.class));
     }
 
     @Test
     public void runOnUiThread() throws Exception {
-//        verify(mMvpView).runOnUiThread();
+        mPresenter.attach(mMvpView);
+        Runnable runnable = () -> {
+        };
+        mPresenter.runOnUiThread(runnable);
+        verify(mMvpView).runOnUiThread(runnable);
     }
 
     @Test
     public void showModel() throws Exception {
+        mPresenter.attach(mMvpView);
+        Model model = new Model();
+        mPresenter.showModel(model);
+        verify(mMvpView).showModel(model);
     }
 
+    @Test
+    public void showModelNotCalledWhenViewNull() throws Exception {
+        Model model = new Model();
+        mPresenter.showModel(model);
+        verify(mMvpView, never()).showModel(model);
+    }
+
+    @Test
+    public void getMvpView() {
+        mPresenter.attach(mMvpView);
+        assertEquals(mMvpView, mPresenter.getMvpView());
+    }
 }
