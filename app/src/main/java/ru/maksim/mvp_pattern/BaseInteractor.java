@@ -13,12 +13,12 @@ public abstract class BaseInteractor implements Interactor {
 
     @Nullable
     @Override
-    public Model getPendingModel() {
+    public final Model getPendingModel() {
         return mPendingModel;
     }
 
     @Override
-    public void storePendingModel(@Nullable Model model) {
+    public final void storePendingModel(@Nullable Model model) {
         mPendingModel = model;
     }
 }

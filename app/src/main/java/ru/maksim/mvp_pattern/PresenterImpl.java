@@ -47,7 +47,7 @@ class PresenterImpl implements Presenter {
         }
     }
 
-    final void handleRetrievedModel(@NonNull Model model) {
+    private void handleRetrievedModel(@NonNull Model model) {
         if (mMvpView == null) {
             mInteractor.storePendingModel(model);
         } else {
