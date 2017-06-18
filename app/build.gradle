@@ -33,4 +33,9 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     testCompile 'org.mockito:mockito-core:2.8.9'
+    testCompile 'org.robolectric:robolectric:3.3.2'
+
+    compile 'com.google.dagger:dagger:2.11'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+
 }

@@ -23,7 +23,7 @@ public class MainFragment extends Fragment implements MvpView, View.OnClickListe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        mPresenter = new PresenterImpl(new SyncInteractor());
+        setPresenter(new PresenterImpl(new SyncInteractor()));
     }
 
     @Nullable
@@ -36,6 +36,11 @@ public class MainFragment extends Fragment implements MvpView, View.OnClickListe
         mModelTextView = (TextView) view.findViewById(R.id.model_text_view);
         view.findViewById(R.id.request_model).setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void setPresenter(@NonNull Presenter presenter) {
+        mPresenter = presenter;
     }
 
     @Override
